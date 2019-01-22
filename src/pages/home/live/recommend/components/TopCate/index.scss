@@ -1,0 +1,99 @@
+
+.game-wrap{
+  padding-bottom: .2rem;
+  background: #E2E4E7;
+  .game-title{
+    height: .9rem;
+    padding: .36rem .1rem 0 .2rem;
+    background: #fff;
+    border-bottom: .01rem solid #ccc;
+    font-size: .3rem;
+    font-weight: bold;
+    color: #2a2a2e;
+    .more{
+      position: absolute;
+      width: .38rem;
+      height: .38rem;
+      top: .38rem;
+      right: .1rem;
+      z-index: 2;
+    }
+  }
+  .game-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: .16rem .16rem  0 .16rem;
+    background: #fff;
+    .game-item{
+      width: 3.54rem;
+      height: 2.76rem;
+      .item-pic{
+        position: relative;
+        width: 100%;
+        height: 2rem;
+        border-radius: .04rem;
+        background:#E2E4E7 url(https://web.bldimg.com/cblued/static/bg@3x.1cnbu725622ghgp.png) no-repeat center center;
+        background-size: .8rem .8rem;
+        .live-type{
+          display: block;
+          position: absolute;
+          width: .62rem;
+          height: .28rem;
+          right: .14rem;
+          top: .14rem;
+        }
+        .watch-num{
+          position: absolute;
+          width: 100%;
+          height: .5rem;
+          left: 0;
+          bottom: 0;
+          padding: .14rem .14rem 0 .14rem; 
+          color: #fff;
+          font-size: .2rem;
+          background: url('https://web.bldimg.com/cblued/static/gamemask@3x.1cnbulgft2o2j7o.png') no-repeat center center;
+          background-size: cover;
+          .live-watch{
+            width: .16rem;
+            height: .18rem;
+            margin-right: .07rem;
+            color: #fff;
+          }
+        }
+      }
+      .anchor-name{
+        margin-top: .18rem;
+        padding-left: .14rem;
+        display: flex;
+        justify-content: space-between;
+        height: .32rem;
+        line-height: .32rem;
+        align-items: center;
+        color: #2a2a2e;
+        font-size: .28rem;
+        .anchor-des{
+          flex: 1;
+          overflow: hidden;
+          text-align: left;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding-right: .1rem;
+          font-size: .28rem;
+          font-weight: bold;
+        }
+        .game-name{
+          background: #3599ff;
+          color: #fff;
+          border-radius: .08rem;
+          text-align: center;
+          font-size: .18rem;
+          padding-top: .08rem;
+          width: 1.06rem;
+          height: .32rem;
+          line-height: .18rem;
+        }
+      }
+    }
+  }
+}

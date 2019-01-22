@@ -1,0 +1,26 @@
+.sub-title{
+  text-align: center;
+  font-size: 0.32rem;
+}
+.vip-data-wrapper{
+  margin-left:0.35rem;
+  margin-right: 0.35rem;
+  // display: grid;
+  // grid-template-columns: 25% 25% 25% 25%;
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-flow: row  wrap;
+}
+.wrapper-item{
+  text-align: center;
+  width: 25%;
+}
+.wrapper-item-icon{
+  margin-top:0.5rem
+}
+.wrapper-item-font{
+  font-size: 0.25rem;
+  margin-top: 0.26rem;
+  margin-left: -0.3rem;
+  margin-right: -0.3rem;
+}

@@ -1,0 +1,33 @@
+.wz-pulltorefresh,.wz-pulltorefresh-main{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  transition: all 0.1s;
+  position: relative;
+}
+.wz-pulltorefresh{
+  padding-bottom: .4rem;
+}
+// html{touch-action: none}
+.wz-pullrefresh{
+  display: flex;
+  justify-content: center;
+  transition: all 0.1s;
+  position: absolute;
+  left: 0;
+  top: -.4rem;
+  right: 0;
+  z-index: 99999;
+}
+.wz-bottomload{
+  display: flex;
+  justify-content: center;
+  transition: all 0.1s;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99999;
+  visibility: hidden;
+  line-height: .4rem;
+}
