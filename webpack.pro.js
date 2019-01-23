@@ -3,7 +3,7 @@
  * @Author: chenweizhi
  * @Date: 2018-11-15 16:23:40
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-23 03:02:23
+ * @Last Modified time: 2019-01-23 15:40:22
  */
 
 const path = require('path');
@@ -50,18 +50,6 @@ module.exports = {
       // 解析css文件
       {
         test: /\.css$/,
-        // use: ExtractTextPlugin.extract({
-        //   fallback: 'style-loader',
-        //   use: [
-        //     {
-        //       loader: 'css-loader',
-        //       options: {
-        //         minimize: true,
-        //       },
-        //     },
-        //     'postcss-loader',
-        //   ],
-        // }),
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -71,19 +59,6 @@ module.exports = {
       // 解析sass,scss文件
       {
         test: /\.(sass|scss)$/,
-        // use: ExtractTextPlugin.extract({
-        //   fallback: 'style-loader',
-        //   use: [
-        //     {
-        //       loader: 'css-loader',
-        //       options: {
-        //         minimize: true,
-        //       },
-        //     },
-        //     'postcss-loader',
-        //     'sass-loader',
-        //   ],
-        // }),
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -94,19 +69,6 @@ module.exports = {
       // 解析less文件
       {
         test: /\.less$/,
-        // use: ExtractTextPlugin.extract({
-        //   fallback: 'style-loader',
-        //   use: [
-        //     {
-        //       loader: 'css-loader',
-        //       options: {
-        //         minimize: true,
-        //       },
-        //     },
-        //     'postcss-loader',
-        //     'less-loader',
-        //   ],
-        // }),
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -196,10 +158,7 @@ module.exports = {
     }),
 
     // 输出css
-    // new ExtractTextPlugin({
-    //   filename: '[name]-[hash:8].css',
-    //   allChunks: true,
-    // }),
+
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash:8].css',
       chunkFilename: '[id].css',
