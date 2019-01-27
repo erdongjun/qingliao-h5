@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button } from 'antd-mobile';
+
+import {
+  HashRouter as Router,
+  Route,
+} from 'react-router-dom';
+
 
 import Layout from '@components/Layout';
 
-import logo from './1.png';
+// pages
+import Home from './pages/home/home';
+import Login from './pages/user/login';
+import Register from './pages/user/register';
+
 
 // 自定义布局参数
 const layoutArgs = {
   bodyMaxWidth: 425,
   designWidth: 750,
 };
+
 
 class Main extends Component {
   constructor(props) {
@@ -19,17 +29,22 @@ class Main extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log('最外层组件更新');
+  }
+
   render() {
     return (
-      <Layout {...layoutArgs}>
-        <img src={logo} alt="logo" />
-        <img src={logo} alt="logo" />
-        <Button>都是</Button>
-      </Layout>
+      <Router>
+        <Layout {...layoutArgs}>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Layout>
+      </Router>
     );
   }
 }
-export default Main;
 
 render(
   <Main />,

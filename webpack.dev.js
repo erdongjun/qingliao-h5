@@ -3,7 +3,7 @@
  * @Author: chenweizhi
  * @Date: 2018-11-15 16:22:44
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2019-01-23 03:02:31
+ * @Last Modified time: 2019-01-27 07:38:29
  */
 
 const path = require('path');
@@ -122,6 +122,12 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'dist'),
     port: 3002,
     hot: true,
+    proxy: {
+      '*': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+      },
+    },
   },
   optimization: {
     splitChunks: {

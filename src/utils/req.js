@@ -1,74 +1,57 @@
-/**
- * Send request
- * 0.3.0
- *
- * @param  {String} endpoint
- * @param  {String} method {GET/POST} Default GET
- * @param  {Object} data request body {Object/FormData}
- * @return {Promise}
- *
- * @Author: Liu Qian <qianliu>
- * @Email:  112486391@qq.com
- */
-import 'babel-polyfill'
+import 'babel-polyfill';
 
-import 'fetch-detector'
+import 'fetch-detector';
 
-import 'fetch-ie8'
+import 'fetch-ie8';
 
-import checkType from './checkType'
-import obj2qs from './obj2qs'
+import checkType from './checkType';
+import obj2qs from './obj2qs';
 
-require('es6-promise').polyfill()
+require('es6-promise').polyfill();
 
-export const GET = 'GET'
-export const POST = 'POST'
+export const GET = 'GET';
+export const POST = 'POST';
 
-export default({
+export default ({
   endpoint,
   method = GET,
   data = {},
 } = {}) => {
   if (!endpoint) {
-    throw new Error('{endpoint} must be specified.')
+    throw new Error('{endpoint} must be specified.');
   }
 
   if (!([GET, POST].includes(method))) {
-    throw new Error(`{method} must be ${GET} or ${POST}.`)
+    throw new Error(`{method} must be ${GET} or ${POST}.`);
   }
 
   if (!checkType(data, 'Object')) {
-    throw new Error('{data} must be a Object.')
+    throw new Error('{data} must be a Object.');
   }
+  let url = endpoint;
 
   const fetchOpts = {
     method,
     credentials: 'same-origin',
-  }
-
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  };
   if (method === GET) {
-    const querystring = obj2qs(data)
-
+    const querystring = obj2qs(data);
     if (querystring) {
-      endpoint += `?${querystring}`
+      url = `${endpoint}?${querystring}`;
     }
   } else {
-    // POST FormData
-    const fd = new FormData()
-    Object
-      .keys(data)
-      .map(k => fd.append(k, data[k]))
-
-    fetchOpts.body = fd
+    fetchOpts.body = JSON.stringify(data);
   }
-
   return new Promise((resolve, reject) => {
-    fetch(endpoint, fetchOpts)
+    fetch(url, fetchOpts)
       .then(res => res.json())
       .then(resolve)
-      .catch(err => {
-        console.error(err)
-        reject(err)
-      })
-  })
-}
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+};
