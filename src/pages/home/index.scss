@@ -1,0 +1,8 @@
+.home-wrap{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  &.am-tab-bar-bar{
+    flex-direction: row;
+  }
+}

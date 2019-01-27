@@ -1,36 +1,26 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import { createForm } from 'rc-form';
+
 import {
   InputItem, Button, Toast,
   NavBar, Icon,
 } from 'antd-mobile';
-import { Link, withRouter } from 'react-router-dom';
-
-
-import { createForm } from 'rc-form';
-
 import req from '@utils/req';
-import cookie from '@utils/cookie';
 
 import './scss/register.scss';
 
-class Login extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.submit = this.submit.bind(this);
-  }
-
-  componentDidMount() {
-    // 账号已登陆无法进入登录页
-    console.log(cookie.get('uid'));
-    if (cookie.get('uid')) {
-      this.props.history.push('/');
-    }
   }
 
   submit() {
     const that = this;
     this.props.form.validateFields((error, value) => {
       const Rex = /^[a-zA-Z0-9]{6,20}$/;
+      const nickRex = /^[\s\S]*.*[^\s][\s\S]*$/;
       // 验证用户名
       if (!Rex.test(value.name.trim())) {
         Toast.fail('用户名有误', 1);
@@ -41,29 +31,37 @@ class Login extends Component {
         Toast.fail('密码有误', 1);
         return false;
       }
+      // 验证昵称
+      if (!nickRex.test(value.nick_name.trim())) {
+        Toast.fail('昵称有误', 1);
+        return false;
+      }
       const data = {
         name: value.name.trim(),
         password: value.password.trim(),
+        nick_name: value.nick_name.trim(),
       };
+
       req({
-        endpoint: 'home/user/login',
+        endpoint: 'home/user/register',
         method: 'POST',
         data,
       }).then((res) => {
-        if (res.code !== 200) {
+        console.log(res);
+        if (Number(res.code) !== 200) {
           Toast.fail(res.msg, 1);
         } else {
-          cookie.set('uid', res.data.uid, 30);
-          cookie.set('nick_name', res.data.nick_name, 30);
           Toast.success(res.msg, 1);
-          // 跳转首页
-          that.props.history.push('/');
+          // 跳转登录页
+          that.props.history.push('/login');
         }
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err);
         Toast.fail('请求错误', 1);
       });
     });
   }
+
 
   render() {
     const { getFieldProps } = this.props.form;
@@ -73,9 +71,9 @@ class Login extends Component {
           mode="dark"
           icon={<Icon type="left" />}
           onLeftClick={() => { window.history.go(-1); }}
-          rightContent={<Link className="register-btn" to="/register">注册</Link>}
+          rightContent={<Link className="register-btn" to="/login">登录</Link>}
         >
-          用户登录
+          用户注册
         </NavBar>
         <h2>轻聊社区</h2>
         <InputItem
@@ -93,12 +91,19 @@ class Login extends Component {
         >
           密码
         </InputItem>
-        <Button className="submit" onClick={this.submit} type="primary">登录</Button>
+        <InputItem
+          {...getFieldProps('nick_name')}
+          type="text"
+          placeholder="昵称"
+        >
+          昵称
+        </InputItem>
+        <Button className="submit" onClick={this.submit} type="primary">注册</Button>
       </div>
     );
   }
 }
 
-const LoginWrapper = createForm()(Login);
+const RegisterWrapper = createForm()(Register);
 
-export default withRouter(LoginWrapper);
+export default withRouter(RegisterWrapper);

@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2018-12-01 16:02:44
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2018-12-05 12:00:02
+ * @Last Modified time: 2019-01-27 19:22:32
  */
 
 // es6-promise
@@ -17,6 +17,7 @@ import FastClick from 'fastclick'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './reset.scss'
+import './font.scss'
 
 // eslint-disable-next-line no-underscore-dangle
 if (!global._babelPolyfill) {

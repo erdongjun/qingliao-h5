@@ -13,6 +13,8 @@ import Layout from '@components/Layout';
 import Home from './pages/home/home';
 import Login from './pages/user/login';
 import Register from './pages/user/register';
+import PostFeed from './pages/post/feed';
+import PostArticle from './pages/post/article';
 
 
 // 自定义布局参数
@@ -29,10 +31,6 @@ class Main extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('最外层组件更新');
-  }
-
   render() {
     return (
       <Router>
@@ -40,6 +38,8 @@ class Main extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/postfeed" component={PostFeed} />
+          <Route path="/postarticle" component={PostArticle} />
         </Layout>
       </Router>
     );
