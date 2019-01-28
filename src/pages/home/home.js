@@ -4,6 +4,9 @@ import {
 } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
+
+import Feed from '../feed/index';
+
 import './index.scss';
 
 const { Item } = Popover;
@@ -66,8 +69,14 @@ class Home extends Component {
   render() {
     console.log(this.state);
     return (
-      <div className="home-wrap">
+      <div
+        className="home-wrap"
+        style={{
+          position: 'fixed', height: '100%', width: '100%', top: 0,
+        }}
+      >
         <NavBar
+          className="nav-bar"
           mode="light"
           icon={<i className="iconfont-lg iconfont icon-dongwutubiao-xianxing-daxiang" />}
           rightContent={[
@@ -93,6 +102,7 @@ class Home extends Component {
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
           barTintColor="white"
+          tabBarPosition="bottom"
           prefixCls="home-wrap am-tab-bar"
         >
           <TabBar.Item
@@ -107,7 +117,7 @@ class Home extends Component {
               });
             }}
           >
-          feed动态
+            <Feed />
           </TabBar.Item>
           <TabBar.Item
             icon={(<i className="iconfont-md iconfont icon-wenzhang2" />)}

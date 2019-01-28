@@ -10,7 +10,6 @@ import { createForm } from 'rc-form';
 
 import req from '@utils/req';
 import reqForm from '@utils/reqForm';
-import cookie from '@utils/cookie';
 
 import './scss/register.scss';
 
@@ -89,16 +88,17 @@ class PostFeed extends Component {
         imgs,
       };
       req({
-        endpoint: 'home/post/feed',
+        endpoint: 'home/feed/add',
         method: 'POST',
         data,
       }).then((res) => {
         if (res.code !== 200) {
           Toast.fail(res.msg, 1);
         } else {
-          Toast.success(res.msg, 1);
-          // 跳转首页
-          that.props.history.push('/');
+          Toast.success(res.msg, 1, () => {
+            // 跳转首页
+          // that.props.history.push('/');
+          });
         }
       }).catch(() => {
         Toast.fail('请求错误', 1);
@@ -117,7 +117,6 @@ class PostFeed extends Component {
           mode="dark"
           icon={<Icon type="left" />}
           onLeftClick={() => { window.history.go(-1); }}
-          rightContent={<Link className="register-btn" to="/register">注册</Link>}
         >
           发布动态
         </NavBar>

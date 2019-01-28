@@ -1,0 +1,35 @@
+.feed-wrap{
+  font-size: .28rem;
+  .am-card-full{
+    margin-bottom:.1rem;
+  }
+  .am-card-footer{
+    font-size: .26rem;
+    margin-top:.1rem;
+  }
+
+  .am-card-header-content {
+    font-size: .30rem;
+    img{
+      width: .8rem;
+      height: .8rem;
+      border-radius: .1rem;
+    }
+  }
+  .am-card-header-extra{
+    font-size: .28rem;
+  }
+  .feed-imgs{
+    margin-top:.2rem;
+    overflow: hidden;
+
+    .img-wrap{ 
+      position: relative;
+      float: left;
+      width: 30%;
+      height: 0;
+      padding-bottom: 30%;
+      margin: 1.5%;
+    }
+  }
+}
