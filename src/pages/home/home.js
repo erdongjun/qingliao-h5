@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 
 import Feed from '../feed/index';
+import Article from '../article/index';
 
 import './index.scss';
 
@@ -95,7 +96,6 @@ class Home extends Component {
             </Popover>,
           ]}
         >
-
           轻聊
         </NavBar>
         <TabBar
@@ -131,7 +131,7 @@ class Home extends Component {
               });
             }}
           >
-            artcle故事
+            <Article />
           </TabBar.Item>
           <TabBar.Item
             icon={(<i className="iconfont-md iconfont icon-icon_video" />)}

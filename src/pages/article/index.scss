@@ -19,20 +19,11 @@
   .am-card-header-extra{
     font-size: .28rem;
   }
-  .feed-content{
-    line-height: 1.5;
+  .article-title{
+    font-size:.32rem;
+    margin:.2rem;
   }
-  .feed-imgs{
-    margin-top:.2rem;
-    overflow: hidden;
-
-    .img-wrap{ 
-      position: relative;
-      float: left;
-      width: 30%;
-      height: 0;
-      padding-bottom: 30%;
-      margin: 1.5%;
-    }
+  .article-centent{
+    line-height: 1.5;
   }
 }

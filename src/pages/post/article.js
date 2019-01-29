@@ -1,62 +1,102 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import {
+  Button, Toast,
+  NavBar, Icon, TextareaItem, InputItem,
+} from 'antd-mobile';
+import { Link, withRouter } from 'react-router-dom';
+
+
 import { createForm } from 'rc-form';
 
-import {
-  InputItem, Button, Toast,
-  NavBar, Icon,
-} from 'antd-mobile';
 import req from '@utils/req';
+import reqForm from '@utils/reqForm';
 
-import './scss/register.scss';
+import './index.scss';
 
-class Register extends Component {
+
+class PostFeed extends Component {
   constructor() {
     super();
+    this.state = {
+      files: [],
+      multiple: true,
+    };
     this.submit = this.submit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onAddImageClick = this.onAddImageClick.bind(this);
+  }
+
+  onChange(files, type, index) {
+    console.log(files, type, index);
+    this.setState({
+      files: files.slice(0, 9),
+    });
+    // 添加操作且不超过10
+    if (type === 'add' && files.length < 10 && files.length > 0) {
+      const data = {
+        files,
+        index: Number(files.length - 1),
+      };
+      reqForm({
+        endpoint: 'common/file/upload',
+        data,
+      }).then((res) => {
+        if (res.code !== 200) {
+          Toast.fail(res.msg, 1);
+        } else {
+          console.log('上传成功');
+          files[res.data.index].url = res.data.url;
+          this.setState({
+            files,
+          });
+        }
+      });
+    }
+  }
+
+  onAddImageClick(e) {
+    const { files } = this.setState;
+    e.preventDefault();
+    this.setState({
+      files: files.concat({
+        url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
+        id: '3',
+      }),
+    });
   }
 
   submit() {
     const that = this;
+    const { files } = that.state;
     this.props.form.validateFields((error, value) => {
-      const Rex = /^[a-zA-Z0-9]{6,20}$/;
-      const nickRex = /^[\s\S]*.*[^\s][\s\S]*$/;
-      // 验证用户名
-      if (!Rex.test(value.name.trim())) {
-        Toast.fail('用户名有误', 1);
+      // 验证文章内容
+      if (!(value.content.trim().length > 30)) {
+        Toast.fail('内容太少了', 1);
         return false;
       }
-      // 验证密码
-      if (!Rex.test(value.password.trim())) {
-        Toast.fail('密码有误', 1);
+       if (!(value.title.trim().length > 0)) {
+        Toast.fail('请输入标题', 1);
         return false;
       }
-      // 验证昵称
-      if (!nickRex.test(value.nick_name.trim())) {
-        Toast.fail('昵称有误', 1);
-        return false;
-      }
+     
       const data = {
-        name: value.name.trim(),
-        password: value.password.trim(),
-        nick_name: value.nick_name.trim(),
+        content: value.content,
+        title: value.title,
       };
-
       req({
-        endpoint: 'home/user/register',
+        endpoint: 'home/article/add',
         method: 'POST',
         data,
       }).then((res) => {
-        console.log(res);
-        if (Number(res.code) !== 200) {
+        if (res.code !== 200) {
           Toast.fail(res.msg, 1);
         } else {
-          Toast.success(res.msg, 1);
-          // 跳转登录页
-          that.props.history.push('/login');
+          Toast.success(res.msg, 1, () => {
+            // 跳转首页
+          // that.props.history.push('/');
+          });
         }
-      }).catch((err) => {
-        console.log(err);
+      }).catch(() => {
         Toast.fail('请求错误', 1);
       });
     });
@@ -64,46 +104,36 @@ class Register extends Component {
 
 
   render() {
+    const { files, multiple } = this.state;
     const { getFieldProps } = this.props.form;
+    console.log(' this.state', this.state);
     return (
-      <div className="register">
+      <div className="post-wrap">
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
           onLeftClick={() => { window.history.go(-1); }}
-          rightContent={<Link className="register-btn" to="/login">登录</Link>}
         >
-          用户注册
+          发布动态
         </NavBar>
-        <h2>轻聊社区</h2>
         <InputItem
-          {...getFieldProps('name')}
-          type="text"
-          placeholder="英文或者数字，6位数以上"
-        >
-          用户名
-        </InputItem>
-
-        <InputItem
-          {...getFieldProps('password')}
-          type="password"
-          placeholder="6-12位密码"
-        >
-          密码
-        </InputItem>
-        <InputItem
-          {...getFieldProps('nick_name')}
-          type="text"
-          placeholder="昵称"
-        >
-          昵称
-        </InputItem>
-        <Button className="submit" onClick={this.submit} type="primary">注册</Button>
+          className='article-title'
+          {...getFieldProps('title')}
+          placeholder="文章标题"
+        />
+        <TextareaItem
+          className='article-content'
+          {...getFieldProps('content')}
+          placeholder="文章内容"
+          rows={12}
+          count={6000}
+        />
+        <Button className="submit" onClick={this.submit} type="primary">发布</Button>
       </div>
     );
   }
 }
 
-const RegisterWrapper = createForm()(Register);
+const PostFeedWrapper = createForm()(PostFeed);
 
-export default withRouter(RegisterWrapper);
+export default withRouter(PostFeedWrapper);

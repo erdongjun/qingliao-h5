@@ -11,7 +11,7 @@ import { createForm } from 'rc-form';
 import req from '@utils/req';
 import reqForm from '@utils/reqForm';
 
-import './scss/register.scss';
+import './index.scss';
 
 
 class PostFeed extends Component {
@@ -74,7 +74,6 @@ class PostFeed extends Component {
         Toast.fail('内容太少了', 1);
         return false;
       }
-      console.log(files);
       let imgs = '';
       files.forEach((item, index) => {
         if (index) {
@@ -84,7 +83,7 @@ class PostFeed extends Component {
         }
       });
       const data = {
-        content: value.content.trim(),
+        content: value.content,
         imgs,
       };
       req({
@@ -112,7 +111,7 @@ class PostFeed extends Component {
     const { getFieldProps } = this.props.form;
     console.log(' this.state', this.state);
     return (
-      <div className="register">
+      <div className="post-wrap">
         <NavBar
           mode="dark"
           icon={<Icon type="left" />}
@@ -121,6 +120,7 @@ class PostFeed extends Component {
           发布动态
         </NavBar>
         <TextareaItem
+          className='article-content'
           {...getFieldProps('content')}
           placeholder="这一刻的想法"
           rows={6}
