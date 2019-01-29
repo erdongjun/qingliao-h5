@@ -60,7 +60,7 @@ class Feed extends Component {
               extra={<span>{item.create_time}</span>}
             />
             <Card.Body>
-              <div className="feed-content">{item.content}</div>
+              <div className="feed-content" >{item.content }</div>
               <div className="feed-imgs">
                 {item.imgs.map((img,index) => (
                   <i className="img-wrap" key={index} style={{ background: `url(${img}) no-repeat center`, backgroundSize: 'contain' }}/>
