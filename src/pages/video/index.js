@@ -12,7 +12,7 @@ import req from '@utils/req';
 import './index.scss';
 
 
-class Feed extends Component {
+class Video extends Component {
   constructor() {
     super();
     this.state = {
@@ -33,7 +33,7 @@ class Feed extends Component {
       limit: 7,
     };
     req({
-      endpoint: 'home/feed/list',
+      endpoint: 'home/video/list',
       data,
     })
       .then((res) => {
@@ -60,12 +60,10 @@ class Feed extends Component {
               extra={<span>{item.create_time}</span>}
             />
             <Card.Body>
-              {/* <div className="feed-content" dangerouslySetInnerHTML = {{ __html: item.content  }} ></div> */}
-              <div className="feed-content" > {item.content} </div>
-              <div className="feed-imgs">
-                {item.imgs.map((img,index) => (
-                  <i className="img-wrap" key={index} style={{ background: `url(${img}) no-repeat center`, backgroundSize: 'contain' }}/>
-                ))}
+              <h2 className='article-title'>{item.title}</h2>
+              <div className="article-centent">
+                {item.content}
+                <video controls="controls" src="https://video.pearvideo.com/mp4/adshort/20190128/cont-1511940-13533417_adpkg-ad_sd.mp4"></video>
               </div>
             </Card.Body>
             <Card.Footer content={(<i className="iconfont icon--redu" >&nbsp;{item.rank}</i>)} extra={(<div><i className="iconfont icon--zan" >&nbsp;{item.zan}</i>&nbsp;&nbsp;<i className="iconfont icon--pinglun" >&nbsp;{item.comment}</i></div>)} />
@@ -78,4 +76,4 @@ class Feed extends Component {
 }
 
 
-export default withRouter(Feed);
+export default withRouter(Video);

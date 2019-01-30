@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 import Feed from '../feed/index';
 import Article from '../article/index';
+import Video from '../video/index';
 
 import './index.scss';
 
@@ -48,6 +49,16 @@ class Home extends Component {
           text: '文章',
           onPress: () => {
             that.props.history.push('/postarticle');
+          },
+          style: {
+            textAlign: 'center',
+            padding: '0 10px',
+          },
+        },
+        {
+          text: '视频',
+          onPress: () => {
+            that.props.history.push('/postvideo');
           },
           style: {
             textAlign: 'center',
@@ -145,7 +156,7 @@ class Home extends Component {
               });
             }}
           >
-          video视频
+            <Video />
           </TabBar.Item>
           <TabBar.Item
             icon={(<i className="iconfont-md iconfont icon--chengyuan" />)}

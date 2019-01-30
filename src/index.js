@@ -13,8 +13,10 @@ import Layout from '@components/Layout';
 import Home from './pages/home/home';
 import Login from './pages/user/login';
 import Register from './pages/user/register';
+// 发布
 import PostFeed from './pages/post/feed';
 import PostArticle from './pages/post/article';
+import PostVideo from './pages/post/video';
 
 
 // 自定义布局参数
@@ -40,6 +42,7 @@ class Main extends Component {
           <Route path="/register" component={Register} />
           <Route path="/postfeed" component={PostFeed} />
           <Route path="/postarticle" component={PostArticle} />
+          <Route path="/postvideo" component={PostVideo} />
         </Layout>
       </Router>
     );

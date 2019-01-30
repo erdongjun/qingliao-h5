@@ -14,7 +14,7 @@ import reqForm from '@utils/reqForm';
 import './index.scss';
 
 
-class PostFeed extends Component {
+class PostVideo extends Component {
   constructor() {
     super();
     this.state = {
@@ -28,12 +28,17 @@ class PostFeed extends Component {
     const that = this;
     const { files } = that.state;
     this.props.form.validateFields((error, value) => {
-      // 验证文章内容
-      if (!(value.content.trim().length > 30)) {
-        Toast.fail('内容太少了', 1);
+      // 验证视频地址
+      if (!(value.content.trim().length > 5)) {
+        Toast.fail('视频地址非法', 1);
         return false;
       }
-       if (!(value.title.trim().length > 0)) {
+      // 验证视频封面
+      if (!(value.pic.trim().length > 5)) {
+        Toast.fail('视频封面地址非法', 1);
+        return false;
+      }
+      if (!(value.title.trim().length > 0)) {
         Toast.fail('请输入标题', 1);
         return false;
       }
@@ -41,9 +46,10 @@ class PostFeed extends Component {
       const data = {
         content: value.content,
         title: value.title,
+        pic:value.pic,
       };
       req({
-        endpoint: 'home/article/add',
+        endpoint: 'home/video/add',
         method: 'POST',
         data,
       }).then((res) => {
@@ -73,19 +79,24 @@ class PostFeed extends Component {
           icon={<Icon type="left" />}
           onLeftClick={() => { window.history.go(-1); }}
         >
-          发布文章
+          发布视频
         </NavBar>
         <InputItem
           className='article-title'
           {...getFieldProps('title')}
-          placeholder="文章标题"
+          placeholder="视频标题"
+        />
+        <InputItem
+          className='article-title'
+          {...getFieldProps('pic')}
+          placeholder="视频封面图地址"
         />
         <TextareaItem
           className='article-content'
           {...getFieldProps('content')}
-          placeholder="文章内容"
-          rows={12}
-          count={10000}
+          placeholder="视频地址 mp4"
+          rows={5}
+          count={1000}
         />
         <Button className="submit" onClick={this.submit} type="primary">发布</Button>
       </div>
@@ -93,6 +104,6 @@ class PostFeed extends Component {
   }
 }
 
-const PostFeedWrapper = createForm()(PostFeed);
+const PostVideoWrapper = createForm()(PostVideo);
 
-export default withRouter(PostFeedWrapper);
+export default withRouter(PostVideoWrapper);

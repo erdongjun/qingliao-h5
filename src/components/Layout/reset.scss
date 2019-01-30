@@ -163,10 +163,10 @@ textarea {
 }
 // 图片响应式缩放
 
-  img{
-    max-width: 100%;
+img,video {
+  max-width: 100%;
 
-  }
+}
 
 html,body {
   margin: 0;

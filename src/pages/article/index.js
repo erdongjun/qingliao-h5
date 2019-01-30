@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  Card,
+  Card,Toast
 } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import req from '@utils/req';
 import './index.scss';
 
 
-class Feed extends Component {
+class Article extends Component {
   constructor() {
     super();
     this.state = {
@@ -73,4 +73,4 @@ class Feed extends Component {
 }
 
 
-export default withRouter(Feed);
+export default withRouter(Article);
