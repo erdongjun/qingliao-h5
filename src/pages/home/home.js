@@ -33,7 +33,6 @@ class Home extends Component {
       popoverShow: false,
     });
     if (opt.props.value === 'add') {
-      console.log('添加动态');
       operation([
         {
           text: '动态',
@@ -68,7 +67,7 @@ class Home extends Component {
       ]);
     }
     if (opt.props.value === 'search') {
-      console.log('搜索');
+      that.props.history.push('/search');
     }
   }
 

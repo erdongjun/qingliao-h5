@@ -116,18 +116,6 @@ module.exports = {
     // 省略后缀
     extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.less'],
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /\.js|jsx$/,
-          chunks: 'all', // 表示显示块的范围，有三个可选值：initial(初始块)、async(按需加载块)、all(全部块)，默认为all;
-          name: 'vendor', // 拆分出来块的名字(Chunk Names)，默认由块名和hash值自动生成；
-          enforce: true,
-        },
-      },
-    },
-  },
   // 处理插件
   plugins: [
     // 上传到七牛
@@ -156,9 +144,7 @@ module.exports = {
       id: 'babel',
       loaders: ['babel-loader?cacheDirectory'],
     }),
-
     // 输出css
-
     new MiniCssExtractPlugin({
       filename: '[name].[chunkhash:8].css',
       chunkFilename: '[id].css',

@@ -17,6 +17,7 @@ import Register from './pages/user/register';
 import PostFeed from './pages/post/feed';
 import PostArticle from './pages/post/article';
 import PostVideo from './pages/post/video';
+import Search from './pages/search/index';
 
 
 // 自定义布局参数
@@ -43,6 +44,8 @@ class Main extends Component {
           <Route path="/postfeed" component={PostFeed} />
           <Route path="/postarticle" component={PostArticle} />
           <Route path="/postvideo" component={PostVideo} />
+          <Route path="/search" component={Search} />
+          
         </Layout>
       </Router>
     );
