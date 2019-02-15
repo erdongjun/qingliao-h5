@@ -11,5 +11,6 @@ module.exports = {
         "react/prop-types":0,
         "react/destructuring-assignment":0,
         "no-console":0,
+        "jsx-a11y/media-has-caption":0,
     }
 };

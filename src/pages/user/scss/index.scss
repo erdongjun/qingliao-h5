@@ -1,5 +1,21 @@
-// 注册
-.register{
-
-  margin: 2rem 0
+// 用户资料页
+.user-wrap{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  .user-avator{
+    height: 3rem;
+    overflow: hidden;
+    background: url('https://web.bldimg.com/cblued/static/WechatIMG136.1d3lqeeinhonsv.jpeg') no-repeat center center;
+    background-size: cover;
+    .avator{
+      display: block;
+      margin: .3rem auto;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      border:.04rem solid #fff;
+    }
+  }
+  
 }

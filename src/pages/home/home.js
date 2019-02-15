@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Feed from '../feed/index';
 import Article from '../article/index';
 import Video from '../video/index';
+import User from '../user/index';
 
 import './index.scss';
 
@@ -18,12 +19,19 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'feed',
+      selectedTab: 'user',
       popoverShow: false,
-      popoverSelected: '',
+      cates: {
+        feed: '热门',
+        artcle: '故事',
+        video: '视频',
+        user: '我的',
+      },
+      title: '热门',
     };
     this.popoverSelect = this.popoverSelect.bind(this);
     this.handleVisibleChange = this.handleVisibleChange.bind(this);
+    this.handelPress = this.handelPress.bind(this);
   }
 
   popoverSelect(opt) {
@@ -77,8 +85,17 @@ class Home extends Component {
     });
   }
 
+  // 选择分类
+  handelPress(type) {
+    const { cates } = this.state;
+    this.setState({
+      selectedTab: type,
+      title: cates[type],
+    });
+  }
+
   render() {
-    console.log(this.state);
+    const { title } = this.state;
     return (
       <div
         className="home-wrap"
@@ -106,7 +123,7 @@ class Home extends Component {
             </Popover>,
           ]}
         >
-          轻聊
+          {title}
         </NavBar>
         <TabBar
           unselectedTintColor="#949494"
@@ -122,9 +139,7 @@ class Home extends Component {
             selectedIcon={(<i className="iconfont-md iconfont icon--redu" />)}
             selected={this.state.selectedTab === 'feed'}
             onPress={() => {
-              this.setState({
-                selectedTab: 'feed',
-              });
+              this.handelPress('feed');
             }}
           >
             <Feed />
@@ -136,9 +151,7 @@ class Home extends Component {
             key="artcle"
             selected={this.state.selectedTab === 'artcle'}
             onPress={() => {
-              this.setState({
-                selectedTab: 'artcle',
-              });
+              this.handelPress('artcle');
             }}
           >
             <Article />
@@ -150,9 +163,7 @@ class Home extends Component {
             key="video"
             selected={this.state.selectedTab === 'video'}
             onPress={() => {
-              this.setState({
-                selectedTab: 'video',
-              });
+              this.handelPress('video');
             }}
           >
             <Video />
@@ -164,12 +175,10 @@ class Home extends Component {
             key="user"
             selected={this.state.selectedTab === 'user'}
             onPress={() => {
-              this.setState({
-                selectedTab: 'user',
-              });
+              this.handelPress('user');
             }}
           >
-        user我的
+            <User />
           </TabBar.Item>
         </TabBar>
       </div>
