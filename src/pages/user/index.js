@@ -13,110 +13,100 @@ class User extends Component {
   constructor() {
     super();
     this.state = {
-      list: [],
-      pn: 1,
-      limit: 10,
+      info: {},
     };
     this.onLoad = this.onLoad.bind(this);
+    this.handleJump = this.handleJump.bind(this);
   }
 
   componentDidMount() {
     this.onLoad();
   }
 
-
-  // 加载更多
   onLoad() {
-    const { pn, list, limit } = this.state;
-    // 添加操作且不超过10
-    const data = {
-      pn,
-      limit,
-    };
     req({
-      endpoint: 'home/video/list',
-      data,
+      endpoint: 'home/user/data',
     })
       .then((res) => {
         if (res.code !== 200) {
           Toast.fail(res.msg, 1);
-        } else if (res.data.length === 0) {
-          Toast.info('数据加载完毕', 1);
         } else {
           this.setState({
-            list: list.concat(res.data),
-            pn: (pn + 1),
+            info: res.data,
           });
         }
       });
   }
-
+  handleJump(path){
+    this.props.history.push(`/${path}`)
+  }
   render() {
+    const { info } = this.state;
     return (
       <div className="user-wrap">
         <div className="user-avator">
-          <img className="avator" src="https://img2.woyaogexing.com/2019/01/21/ae7d319e9d0107ae!360x360_big.jpg" alt="" />
-          <p>我的昵称</p>
-          <p>个性签名</p>
-          <p>
-            <span>192 点赞</span>
-            <span>192 关注</span>
-            <span>192 粉丝</span>
+          <img className="avator" src={info.avatar} alt="" />
+          <p className="nick-name">{info.nick_name}</p>
+          <p className="des">{info.des}</p>
+          <p className="info">
+            <span>192w 点赞</span>
+            <span>1292 关注</span>
+            <span>199w 粉丝</span>
           </p>
         </div>
-        <List>
+        <List className="user-list">
           <Item
-            thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+            thumb={(<i className="iconfont-md iconfont icon-dongtaiquan" />)}
             arrow="horizontal"
-            onClick={() => {}}
+            onClick={() => {this.handleJump('myfeed')}}
           >
-          我的动态
+          动态
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
+            onClick={() => {this.handleJump('myarticle')}}
             arrow="horizontal"
           >
-          我的故事
+          文章
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon-video" />)}
             arrow="horizontal"
+            onClick={() => {this.handleJump('myvideo')}}
           >
-          我的视频
+          视频
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon--pinglun" />)}
             arrow="horizontal"
+            onClick={() => {this.handleJump('mycomment')}}
           >
-          我的评论
+          评论
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon--zan" />)}
             arrow="horizontal"
+            onClick={() => {this.handleJump('myzan')}}
           >
-          我的点赞
+          点赞
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon-moban" />)}
             arrow="horizontal"
+            onClick={() => {this.handleJump('visitor')}}
           >
-          我的访客
+          访客
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon-guanyuwomen" />)}
             arrow="horizontal"
+            onClick={() => {this.handleJump('about')}}
           >
-          关于轻聊
+          关于
           </Item>
           <Item
-            thumb={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            onClick={() => {}}
+            thumb={(<i className="iconfont-md iconfont icon--shezhi" />)}
+            onClick={() => {this.handleJump('setting')}}
             arrow="horizontal"
           >
           设置

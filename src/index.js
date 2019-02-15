@@ -18,7 +18,9 @@ import PostFeed from './pages/post/feed';
 import PostArticle from './pages/post/article';
 import PostVideo from './pages/post/video';
 import Search from './pages/search/index';
-
+// 我的动态
+import MyFeed from './pages/feed/myfeed';
+// 404页面
 
 // 自定义布局参数
 const layoutArgs = {
@@ -45,7 +47,8 @@ class Main extends Component {
           <Route path="/postarticle" component={PostArticle} />
           <Route path="/postvideo" component={PostVideo} />
           <Route path="/search" component={Search} />
-          
+          <Route path="/myfeed" component={MyFeed} />
+          {/* <Route path="*" component={NotFind} /> */}
         </Layout>
       </Router>
     );

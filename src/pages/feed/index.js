@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Card, Toast } from 'antd-mobile';
+import { Card, Toast,NavBar,Popover,Modal,Icon } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
+import getScrollBottom from '@utils/getScrollBottom';
 
 import './index.scss';
 
+
 class Feed extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       list: [],
       pn: 1,
@@ -20,23 +22,37 @@ class Feed extends Component {
   }
 
   componentDidMount() {
+    const { type } = this.props
     this.onLoad();
-    this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    if (type === 'myfeed') {
+      window.addEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentWillUnmount() {
-    this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
+    const { type } = this.props
+
+    if (type === 'myfeed') {
+      window.removeEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
+    }
   }
 
 
   // 加载更多
   onLoad() {
+    const { type } = this.props
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
+      type,
     };
+   
     req({
       endpoint: 'home/feed/list',
       data,
@@ -56,9 +72,14 @@ class Feed extends Component {
   }
 
   handleScroll(e) {
-    if (getElementScrollBottom(e.target) === 0) {
-      console.log('开始加载数据');
+    const { type } = this.props
+
+    if (type === 'myfeed' && getScrollBottom() === 0) {
       this.onLoad();
+    } else if (getElementScrollBottom(e.target) === 0) {
+      this.onLoad();
+    } else {
+      console.log('滚动中');
     }
   }
 
@@ -67,6 +88,7 @@ class Feed extends Component {
     const { list } = this.state;
     return (
       <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
+      
         {list.map(item => (
           <Card full key={item.id}>
             <Card.Header
@@ -75,15 +97,12 @@ class Feed extends Component {
               extra={<span>{item.create_time}</span>}
             />
             <Card.Body>
-              {/* <div className="feed-content" dangerouslySetInnerHTML = {{ __html: item.content  }} ></div> */}
               <div className="feed-content">
-                {' '}
                 {item.content}
-                {' '}
               </div>
               <div className="feed-imgs">
                 {item.imgs.map((img, index) => (
-                  <i className="img-wrap" key={index} style={{ background: `url(${img}) no-repeat center`, backgroundSize: 'contain' }} />
+                  <i className="img-wrap" key={`index${index}`} style={{ background: `url(${img}) no-repeat center`, backgroundSize: 'contain' }} />
                 ))}
               </div>
             </Card.Body>

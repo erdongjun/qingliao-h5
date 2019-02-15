@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  NavBar, TabBar, Icon, Popover, Modal,
+  NavBar, TabBar, Icon, Popover, Modal, Toast,
 } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
@@ -19,15 +19,15 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'user',
+      selectedTab: 'feed',
       popoverShow: false,
       cates: {
-        feed: '热门',
-        artcle: '故事',
+        feed: '动态',
+        artcle: '文章',
         video: '视频',
         user: '我的',
       },
-      title: '热门',
+      title: '动态',
     };
     this.popoverSelect = this.popoverSelect.bind(this);
     this.handleVisibleChange = this.handleVisibleChange.bind(this);
@@ -77,6 +77,9 @@ class Home extends Component {
     if (opt.props.value === 'search') {
       that.props.history.push('/search');
     }
+    if (opt.props.value === 'quit') {
+      Toast.info('退出账号');
+    }
   }
 
   handleVisibleChange(visible) {
@@ -114,6 +117,7 @@ class Home extends Component {
               overlay={[
                 (<Item key="1" value="search" icon={<i className="iconfont icon--fangdajing" />}>搜索</Item>),
                 (<Item key="2" value="add" icon={<i className="iconfont icon--jiahao" />}>发布</Item>),
+                (<Item key="3" value="quit" icon={<i className="iconfont icon-icontouxiang" />}>退出</Item>),
               ]}
               onVisibleChange={this.handleVisibleChange}
               onSelect={this.popoverSelect}
@@ -133,7 +137,7 @@ class Home extends Component {
           prefixCls="home-wrap am-tab-bar"
         >
           <TabBar.Item
-            title="热门"
+            title="动态"
             key="feed"
             icon={(<i className="iconfont-md iconfont icon--redu" />)}
             selectedIcon={(<i className="iconfont-md iconfont icon--redu" />)}
@@ -147,7 +151,7 @@ class Home extends Component {
           <TabBar.Item
             icon={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
             selectedIcon={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
-            title="故事"
+            title="文章"
             key="artcle"
             selected={this.state.selectedTab === 'artcle'}
             onPress={() => {
@@ -157,8 +161,8 @@ class Home extends Component {
             <Article />
           </TabBar.Item>
           <TabBar.Item
-            icon={(<i className="iconfont-md iconfont icon-icon_video" />)}
-            selectedIcon={(<i className="iconfont-md iconfont icon-icon_video" />)}
+            icon={(<i className="iconfont-md iconfont icon-video" />)}
+            selectedIcon={(<i className="iconfont-md iconfont icon-video" />)}
             title="视频"
             key="video"
             selected={this.state.selectedTab === 'video'}
@@ -169,8 +173,8 @@ class Home extends Component {
             <Video />
           </TabBar.Item>
           <TabBar.Item
-            icon={(<i className="iconfont-md iconfont icon--chengyuan" />)}
-            selectedIcon={(<i className="iconfont-md iconfont icon--chengyuan" />)}
+            icon={(<i className="iconfont-md iconfont icon-icontouxiang" />)}
+            selectedIcon={(<i className="iconfont-md iconfont icon-icontouxiang" />)}
             title="我的"
             key="user"
             selected={this.state.selectedTab === 'user'}
