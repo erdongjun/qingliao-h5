@@ -179,6 +179,7 @@ html,body {
     Arial, sans-serif;
   display: flex;
   min-height: 100vh;
+  height: 100%;
   width: 100%;
   flex-direction: column;
 }
@@ -192,6 +193,26 @@ html {
   flex-direction: column;
   flex: 1;
 }
+.myfeed-wrap{
+  height: 100%;
+  flex: 1;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  .nav-bar{
+    // position: absolute;
+    // width: 100%;
+    // top:0;
+    // left: 0;
+    // z-index: 999;
+  }
+  .feed-wrap{
+    // display: flex;
+    // flex-direction: column;
+    flex:1;
+    overflow: scroll;
+    // margin-top: 45px;
+  }
+}
 
-// }
 

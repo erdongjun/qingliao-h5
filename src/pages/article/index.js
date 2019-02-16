@@ -8,8 +8,8 @@ import getElementScrollBottom from '@utils/getElementScrollBottom';
 import './index.scss';
 
 class Article extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       list: [],
       pn: 1,
@@ -20,22 +20,34 @@ class Article extends Component {
   }
 
   componentDidMount() {
+    const { type } = this.props;
     this.onLoad();
-    this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    if (type === 'myarticle') {
+      this.el.addEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentWillUnmount() {
-    this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
-  }
+    const { type } = this.props;
 
+    if (type === 'myarticle') {
+      this.el.removeEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
+    }
+  }
 
   // 加载更多
   onLoad() {
+    const { type } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
+      type,
     };
     req({
       endpoint: 'home/article/list',
@@ -55,9 +67,9 @@ class Article extends Component {
       });
   }
 
+
   handleScroll(e) {
     if (getElementScrollBottom(e.target) === 0) {
-      console.log('开始加载数据');
       this.onLoad();
     }
   }

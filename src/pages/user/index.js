@@ -37,9 +37,11 @@ class User extends Component {
         }
       });
   }
-  handleJump(path){
-    this.props.history.push(`/${path}`)
+
+  handleJump(path) {
+    this.props.history.push(`/${path}`);
   }
+
   render() {
     const { info } = this.state;
     return (
@@ -58,13 +60,13 @@ class User extends Component {
           <Item
             thumb={(<i className="iconfont-md iconfont icon-dongtaiquan" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('myfeed')}}
+            onClick={() => { this.handleJump('myfeed'); }}
           >
           动态
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
-            onClick={() => {this.handleJump('myarticle')}}
+            onClick={() => { this.handleJump('myarticle'); }}
             arrow="horizontal"
           >
           文章
@@ -72,41 +74,41 @@ class User extends Component {
           <Item
             thumb={(<i className="iconfont-md iconfont icon-video" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('myvideo')}}
+            onClick={() => { this.handleJump('myvideo'); }}
           >
           视频
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon--pinglun" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('mycomment')}}
+            onClick={() => { this.handleJump('mycomment'); }}
           >
           评论
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon--zan" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('myzan')}}
+            onClick={() => { this.handleJump('myzan'); }}
           >
           点赞
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon-moban" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('visitor')}}
+            onClick={() => { this.handleJump('visitor'); }}
           >
           访客
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon-guanyuwomen" />)}
             arrow="horizontal"
-            onClick={() => {this.handleJump('about')}}
+            onClick={() => { this.handleJump('about'); }}
           >
           关于
           </Item>
           <Item
             thumb={(<i className="iconfont-md iconfont icon--shezhi" />)}
-            onClick={() => {this.handleJump('setting')}}
+            onClick={() => { this.handleJump('setting'); }}
             arrow="horizontal"
           >
           设置

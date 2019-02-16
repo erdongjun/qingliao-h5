@@ -9,8 +9,8 @@ import './index.scss';
 
 
 class Video extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       list: [],
       pn: 1,
@@ -21,21 +21,34 @@ class Video extends Component {
   }
 
   componentDidMount() {
+    const { type } = this.props;
     this.onLoad();
-    this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    if (type === 'myvideo') {
+      this.el.addEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   componentWillUnmount() {
-    this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
+    const { type } = this.props;
+
+    if (type === 'myvideo') {
+      this.el.removeEventListener('scroll', this.handleScroll);
+    } else {
+      this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
+    }
   }
 
   // 加载更多
   onLoad() {
+    const { type } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
+      type,
     };
     req({
       endpoint: 'home/video/list',
@@ -55,9 +68,9 @@ class Video extends Component {
       });
   }
 
+
   handleScroll(e) {
     if (getElementScrollBottom(e.target) === 0) {
-      console.log('开始加载数据');
       this.onLoad();
     }
   }

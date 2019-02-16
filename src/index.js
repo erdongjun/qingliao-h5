@@ -20,6 +20,12 @@ import PostVideo from './pages/post/video';
 import Search from './pages/search/index';
 // 我的动态
 import MyFeed from './pages/feed/myfeed';
+// 我的文章
+import MyArticle from './pages/article/myarticle';
+// 我的视频
+import MyVideo from './pages/video/myvideo';
+
+
 // 404页面
 
 // 自定义布局参数
@@ -48,6 +54,9 @@ class Main extends Component {
           <Route path="/postvideo" component={PostVideo} />
           <Route path="/search" component={Search} />
           <Route path="/myfeed" component={MyFeed} />
+          <Route path="/myarticle" component={MyArticle} />
+          <Route path="/myvideo" component={MyVideo} />
+
           {/* <Route path="*" component={NotFind} /> */}
         </Layout>
       </Router>

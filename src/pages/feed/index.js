@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Toast,NavBar,Popover,Modal,Icon } from 'antd-mobile';
+import { Card, Toast } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
 import req from '@utils/req';
@@ -22,20 +22,22 @@ class Feed extends Component {
   }
 
   componentDidMount() {
-    const { type } = this.props
+    const { type } = this.props;
     this.onLoad();
     if (type === 'myfeed') {
-      window.addEventListener('scroll', this.handleScroll);
+      // window.addEventListener('scroll', this.handleScroll);
+      this.el.addEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
     }
   }
 
   componentWillUnmount() {
-    const { type } = this.props
+    const { type } = this.props;
 
     if (type === 'myfeed') {
-      window.removeEventListener('scroll', this.handleScroll);
+      // window.removeEventListener('scroll', this.handleScroll);
+      this.el.removeEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
     }
@@ -44,7 +46,7 @@ class Feed extends Component {
 
   // 加载更多
   onLoad() {
-    const { type } = this.props
+    const { type } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
@@ -52,7 +54,7 @@ class Feed extends Component {
       limit,
       type,
     };
-   
+
     req({
       endpoint: 'home/feed/list',
       data,
@@ -72,14 +74,8 @@ class Feed extends Component {
   }
 
   handleScroll(e) {
-    const { type } = this.props
-
-    if (type === 'myfeed' && getScrollBottom() === 0) {
+    if (getElementScrollBottom(e.target) === 0) {
       this.onLoad();
-    } else if (getElementScrollBottom(e.target) === 0) {
-      this.onLoad();
-    } else {
-      console.log('滚动中');
     }
   }
 
@@ -88,7 +84,7 @@ class Feed extends Component {
     const { list } = this.state;
     return (
       <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
-      
+
         {list.map(item => (
           <Card full key={item.id}>
             <Card.Header
