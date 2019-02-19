@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
-import getScrollBottom from '@utils/getScrollBottom';
 
 import './index.scss';
 
@@ -25,7 +24,6 @@ class Feed extends Component {
     const { type } = this.props;
     this.onLoad();
     if (type === 'myfeed') {
-      // window.addEventListener('scroll', this.handleScroll);
       this.el.addEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
@@ -34,9 +32,7 @@ class Feed extends Component {
 
   componentWillUnmount() {
     const { type } = this.props;
-
     if (type === 'myfeed') {
-      // window.removeEventListener('scroll', this.handleScroll);
       this.el.removeEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
