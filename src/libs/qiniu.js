@@ -2,7 +2,7 @@
  * @Author: chenweizhi
  * @Date: 2018-11-14 20:43:43
  * @Last Modified by: chenweizhi
- * @Last Modified time: 2018-11-27 13:35:16
+ * @Last Modified time: 2019-02-23 17:17:58
  */
 
 // 七牛上传配置文件
@@ -12,4 +12,4 @@ module.exports = {
   bucket: 'blued-web',
   cdnBase: 'https://web.bldimg.com',
   cdnBaseTest: 'https://os4ty6tab.qnssl.com',
-}
+};

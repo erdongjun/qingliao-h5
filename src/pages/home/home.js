@@ -3,7 +3,11 @@ import {
   NavBar, TabBar, Icon, Popover, Modal, Toast,
 } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
+import MyNavBar from '@components/MyNavBar';
 
+
+import signOut from '@utils/signOut';
+import Cookie from '@utils/cookie';
 
 import Feed from '../feed/index';
 import Article from '../article/index';
@@ -11,6 +15,7 @@ import Video from '../video/index';
 import User from '../user/index';
 
 import './index.scss';
+
 
 const { Item } = Popover;
 const { operation } = Modal;
@@ -20,7 +25,7 @@ class Home extends Component {
     super(props);
     this.state = {
       selectedTab: 'feed',
-      popoverShow: false,
+      isLogin: false,
       cates: {
         feed: '动态',
         artcle: '文章',
@@ -29,64 +34,9 @@ class Home extends Component {
       },
       title: '动态',
     };
-    this.popoverSelect = this.popoverSelect.bind(this);
-    this.handleVisibleChange = this.handleVisibleChange.bind(this);
     this.handelPress = this.handelPress.bind(this);
   }
 
-  popoverSelect(opt) {
-    console.log(opt.props.value);
-    const that = this;
-    that.setState({
-      popoverShow: false,
-    });
-    if (opt.props.value === 'add') {
-      operation([
-        {
-          text: '动态',
-          onPress: () => {
-            that.props.history.push('/postfeed');
-          },
-          style: {
-            textAlign: 'center',
-            padding: '0 10px',
-          },
-        },
-        {
-          text: '文章',
-          onPress: () => {
-            that.props.history.push('/postarticle');
-          },
-          style: {
-            textAlign: 'center',
-            padding: '0 10px',
-          },
-        },
-        {
-          text: '视频',
-          onPress: () => {
-            that.props.history.push('/postvideo');
-          },
-          style: {
-            textAlign: 'center',
-            padding: '0 10px',
-          },
-        },
-      ]);
-    }
-    if (opt.props.value === 'search') {
-      that.props.history.push('/search');
-    }
-    if (opt.props.value === 'quit') {
-      Toast.info('退出账号');
-    }
-  }
-
-  handleVisibleChange(visible) {
-    this.setState({
-      popoverShow: visible,
-    });
-  }
 
   // 选择分类
   handelPress(type) {
@@ -98,7 +48,8 @@ class Home extends Component {
   }
 
   render() {
-    const { title } = this.state;
+    const { title, isLogin } = this.state;
+    console.log(isLogin);
     return (
       <div
         className="home-wrap"
@@ -106,29 +57,7 @@ class Home extends Component {
           position: 'fixed', height: '100%', width: '100%', top: 0,
         }}
       >
-        <NavBar
-          className="nav-bar"
-          mode="light"
-          icon={<i className="iconfont-lg iconfont icon-dongwutubiao-xianxing-daxiang" />}
-          rightContent={[
-            <Popover
-              mask
-              visible={this.state.popoverShow}
-              overlay={[
-                (<Item key="1" value="search" icon={<i className="iconfont icon--fangdajing" />}>搜索</Item>),
-                (<Item key="2" value="add" icon={<i className="iconfont icon--jiahao" />}>发布</Item>),
-                (<Item key="3" value="quit" icon={<i className="iconfont icon-icontouxiang" />}>退出</Item>),
-              ]}
-              onVisibleChange={this.handleVisibleChange}
-              onSelect={this.popoverSelect}
-              key="ellipsis"
-            >
-              <Icon type="ellipsis" />
-            </Popover>,
-          ]}
-        >
-          {title}
-        </NavBar>
+        <MyNavBar title={title} />
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
