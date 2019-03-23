@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import {
-  NavBar, TabBar, Icon, Popover, Modal, Toast,
-} from 'antd-mobile';
+import { TabBar } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 import MyNavBar from '@components/MyNavBar';
+import getQueryStringArgs from '@utils/getQueryStringArgs';
+import obj2qs from '@utils/obj2qs';
 
 
-import signOut from '@utils/signOut';
-import Cookie from '@utils/cookie';
 
-import Feed from '../feed/index';
-import Article from '../article/index';
-import Video from '../video/index';
-import User from '../user/index';
+
+import Feed from '../feed/Feed';
+import Article from '../article/Article';
+import Video from '../video/Video';
+import User from '../user/User';
 
 import './index.scss';
-
-
-const { Item } = Popover;
-const { operation } = Modal;
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +29,23 @@ class Home extends Component {
       title: '动态',
     };
     this.handelPress = this.handelPress.bind(this);
+    this.replaceParamVal = this.replaceParamVal.bind(this);
   }
-
-
+  componentDidMount(){
+    const {cates} = this.state
+    const args = getQueryStringArgs(this.props.location.search)
+    let argStr = 'type=feed'
+    if(args.type){
+      this.setState({
+        selectedTab: args.type,
+        title: cates[args.type],
+      })
+      const argStr = obj2qs(args)
+      this.props.history.replace(`/?${argStr}`)
+    }else{
+      this.props.history.replace(`/?${argStr}`)
+    }
+  }
   // 选择分类
   handelPress(type) {
     const { cates } = this.state;
@@ -45,11 +53,22 @@ class Home extends Component {
       selectedTab: type,
       title: cates[type],
     });
+    this.replaceParamVal('type',type)
   }
 
+  replaceParamVal(paramName,replaceWith) {
+    const oUrl = window.location.href.toString();
+    const re=eval('/('+ paramName+'=)([^&]*)/gi');
+    let url = oUrl
+    if(re.test(oUrl)){
+      url = oUrl.replace(re,paramName+'='+replaceWith)
+    }else{
+      url = oUrl + '?' +paramName+'='+replaceWith
+    }
+    window.location.href = url;
+  }
   render() {
     const { title, isLogin } = this.state;
-    console.log(isLogin);
     return (
       <div
         className="home-wrap"

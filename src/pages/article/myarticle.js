@@ -4,9 +4,9 @@ import MyNavBar from '@components/MyNavBar';
 
 
 import './index.scss';
-import Article from './index';
+import Article from './Article';
 
-class MyArticle extends Component {
+class ArticleMe extends Component {
   constructor() {
     super();
   }
@@ -15,10 +15,10 @@ class MyArticle extends Component {
     return (
       <div className="myfeed-wrap">
         <MyNavBar title="我的文章" back />
-        <Article type="myarticle" />
+        <Article my={1} />
       </div>
     );
   }
 }
 
-export default withRouter(MyArticle);
+export default withRouter(ArticleMe);

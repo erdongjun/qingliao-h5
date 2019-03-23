@@ -9,7 +9,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { createForm } from 'rc-form';
 
 import req from '@utils/req';
-import reqForm from '@utils/reqForm';
 
 import './index.scss';
 
@@ -44,12 +43,13 @@ class PostVideo extends Component {
       }
      
       const data = {
-        content: value.content,
+        video: value.content,
         title: value.title,
-        pic:value.pic,
+        video_pic:value.pic,
+        type: 3,
       };
       req({
-        endpoint: 'home/video/add',
+        endpoint: 'home/feeds/add',
         method: 'POST',
         data,
       }).then((res) => {

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
+import VideoItem from './VideoItem'
 
 import './index.scss';
 
@@ -21,9 +22,9 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    const { type } = this.props;
+    const { my } = this.props;
     this.onLoad();
-    if (type === 'myvideo') {
+    if (my) {
       this.el.addEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
@@ -31,9 +32,9 @@ class Video extends Component {
   }
 
   componentWillUnmount() {
-    const { type } = this.props;
+    const { my } = this.props;
 
-    if (type === 'myvideo') {
+    if (my) {
       this.el.removeEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
@@ -42,16 +43,17 @@ class Video extends Component {
 
   // 加载更多
   onLoad() {
-    const { type } = this.props;
+    const { my } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
-      type,
+      type: 3,
+      private: my ? 1 : 0,
     };
     req({
-      endpoint: 'home/video/list',
+      endpoint: 'home/feeds/list',
       data,
     })
       .then((res) => {
@@ -78,43 +80,9 @@ class Video extends Component {
   render() {
     const { list } = this.state;
     return (
-      <div className="feed-wrap" ref={(el) => { this.el = el; }}>
+      <div className="feed-wrap video-wrap" ref={(el) => { this.el = el; }}>
         {list.map(item => (
-          <Card full key={item.id}>
-            <Card.Header
-              title={item.nick_name}
-              thumb={item.avatar}
-              extra={<span>{item.create_time}</span>}
-            />
-            <Card.Body>
-              <h2 className="article-title">{item.title}</h2>
-              <div className="article-centent">
-                <video controls="controls" poster={item.pic} src={item.content} />
-              </div>
-            </Card.Body>
-            <Card.Footer
-              content={(
-                <i className="iconfont icon--redu">
-&nbsp;
-                  {item.rank}
-                </i>
-)}
-              extra={(
-                <div>
-                  <i className="iconfont icon--zan">
-&nbsp;
-                    {item.zan}
-                  </i>
-&nbsp;&nbsp;
-                  <i className="iconfont icon--pinglun">
-&nbsp;
-                    {item.comment}
-                  </i>
-                </div>
-)}
-            />
-          </Card>
-
+          <VideoItem key={item.id} item={item}/>
         ))}
       </div>
     );

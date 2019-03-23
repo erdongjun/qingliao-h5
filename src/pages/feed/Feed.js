@@ -5,9 +5,12 @@ import { withRouter } from 'react-router-dom';
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
 
+import FeedItem from './FeedItem'
+
 import './index.scss';
 
-class Article extends Component {
+
+class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,9 +23,9 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const { type } = this.props;
+    const { my } = this.props;
     this.onLoad();
-    if (type === 'myarticle') {
+    if (my) {
       this.el.addEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
@@ -30,27 +33,29 @@ class Article extends Component {
   }
 
   componentWillUnmount() {
-    const { type } = this.props;
-
-    if (type === 'myarticle') {
+    const { my } = this.props;
+    if (my) {
       this.el.removeEventListener('scroll', this.handleScroll);
     } else {
       this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
     }
   }
 
+
   // 加载更多
   onLoad() {
-    const { type } = this.props;
+    const { my } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
-      type,
+      type: 1,
+      private: my ? 1 : 0,
     };
+
     req({
-      endpoint: 'home/article/list',
+      endpoint: 'home/feeds/list',
       data,
     })
       .then((res) => {
@@ -67,57 +72,21 @@ class Article extends Component {
       });
   }
 
-
   handleScroll(e) {
     if (getElementScrollBottom(e.target) === 0) {
       this.onLoad();
     }
   }
-
-
   render() {
     const { list } = this.state;
     return (
-      <div className="feed-wrap" ref={(el) => { this.el = el; }}>
+      <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
         {list.map(item => (
-          <Card full key={item.id}>
-            <Card.Header
-              title={item.nick_name}
-              thumb={item.avatar}
-              extra={<span>{item.create_time}</span>}
-            />
-            <Card.Body>
-              <h2 className="article-title">{item.title}</h2>
-              <div className="article-centent">{item.content}</div>
-            </Card.Body>
-            <Card.Footer
-              content={(
-                <i className="iconfont icon--redu">
-&nbsp;
-                  {item.rank}
-                </i>
-)}
-              extra={(
-                <div>
-                  <i className="iconfont icon--zan">
-&nbsp;
-                    {item.zan}
-                  </i>
-&nbsp;&nbsp;
-                  <i className="iconfont icon--pinglun">
-&nbsp;
-                    {item.comment}
-                  </i>
-                </div>
-)}
-            />
-          </Card>
-
+          <FeedItem item={item} key={item.id}/>
         ))}
       </div>
     );
   }
 }
 
-
-export default withRouter(Article);
+export default withRouter(Feed);

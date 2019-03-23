@@ -85,9 +85,10 @@ class PostFeed extends Component {
       const data = {
         content: value.content,
         imgs,
+        type: 1,
       };
       req({
-        endpoint: 'home/feed/add',
+        endpoint: 'home/feeds/add',
         method: 'POST',
         data,
       }).then((res) => {

@@ -14,7 +14,7 @@ import reqForm from '@utils/reqForm';
 import './index.scss';
 
 
-class PostFeed extends Component {
+class PostArticle extends Component {
   constructor() {
     super();
     this.state = {
@@ -41,9 +41,10 @@ class PostFeed extends Component {
       const data = {
         content: value.content,
         title: value.title,
+        type: 2,
       };
       req({
-        endpoint: 'home/article/add',
+        endpoint: 'home/feeds/add',
         method: 'POST',
         data,
       }).then((res) => {
@@ -93,6 +94,6 @@ class PostFeed extends Component {
   }
 }
 
-const PostFeedWrapper = createForm()(PostFeed);
+const PostArticleWrapper = createForm()(PostArticle);
 
-export default withRouter(PostFeedWrapper);
+export default withRouter(PostArticleWrapper);

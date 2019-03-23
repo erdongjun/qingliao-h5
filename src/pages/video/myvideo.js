@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import MyNavBar from '@components/MyNavBar';
 
 import './index.scss';
-import Video from './index';
+import Video from './Video';
 
 class MyVideo extends Component {
   constructor() {
@@ -14,7 +14,7 @@ class MyVideo extends Component {
     return (
       <div className="myfeed-wrap">
         <MyNavBar title="我的视频" back />
-        <Video type="myvideo" />
+        <Video my={1} />
       </div>
     );
   }
