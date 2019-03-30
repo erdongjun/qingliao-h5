@@ -1,0 +1,42 @@
+.feed-wrap{
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  .cate-item{
+    display: flex;
+    flex-direction: row;
+    margin-left: .2rem;
+    padding: .2rem .2rem .2rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+    .left{
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: .1rem;
+      margin-right: .3rem;
+    }
+    .mid{
+      flex: 1;
+      line-height: 1.5;
+      .mid-name{
+        font-size: .32rem;
+        font-weight: bold;
+      }
+      .mid-des{
+        font-size: .24rem;
+        color: #999;
+      }
+    }
+    .right{
+      width: 1.4rem;
+      height: .6rem;
+      text-align: center;
+      background: #2a5caa;
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      border-radius: .6rem;
+    }
+  }
+}

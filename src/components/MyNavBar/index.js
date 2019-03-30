@@ -43,7 +43,7 @@ class MyNavBar extends Component {
         {
           text: '动态',
           onPress: () => {
-            that.props.history.push('/postfeed');
+            that.props.history.push('/postfeed/1');
           },
           style: {
             textAlign: 'center',
@@ -53,7 +53,7 @@ class MyNavBar extends Component {
         {
           text: '文章',
           onPress: () => {
-            that.props.history.push('/postarticle');
+            that.props.history.push('/postfeed/2');
           },
           style: {
             textAlign: 'center',
@@ -63,7 +63,7 @@ class MyNavBar extends Component {
         {
           text: '视频',
           onPress: () => {
-            that.props.history.push('/postvideo');
+            that.props.history.push('/postfeed/3');
           },
           style: {
             textAlign: 'center',

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Card, Toast } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
+import FeedItem from '@components/FeedItem';
 
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
 
-import FeedItem from './FeedItem'
-
 import './index.scss';
-
 
 class Feed extends Component {
   constructor(props) {
@@ -41,21 +39,21 @@ class Feed extends Component {
     }
   }
 
-
   // 加载更多
   onLoad() {
-    const { my } = this.props;
+    const { my,tid } = this.props;
+    console.log('tid',tid)
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
-      type: 1,
       private: my ? 1 : 0,
+      tid: tid ? tid : 0,
     };
 
     req({
-      endpoint: 'home/feeds/list',
+      endpoint: 'home/feed/list',
       data,
     })
       .then((res) => {

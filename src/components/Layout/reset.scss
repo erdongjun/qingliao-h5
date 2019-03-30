@@ -193,6 +193,7 @@ html {
   display: flex;
   flex-direction: column;
   flex: 1;
+  font-size: .28rem;
 }
 .myfeed-wrap{
   height: 100%;
@@ -200,19 +201,9 @@ html {
   display: flex;
   position: relative;
   flex-direction: column;
-  .nav-bar{
-    // position: absolute;
-    // width: 100%;
-    // top:0;
-    // left: 0;
-    // z-index: 999;
-  }
   .feed-wrap{
-    // display: flex;
-    // flex-direction: column;
     flex:1;
     overflow: scroll;
-    // margin-top: 45px;
   }
 }
 

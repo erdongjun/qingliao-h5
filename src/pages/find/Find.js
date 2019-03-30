@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Card, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
 
 import req from '@utils/req';
 import getElementScrollBottom from '@utils/getElementScrollBottom';
-import VideoItem from './VideoItem'
 
 import './index.scss';
 
-
-class Video extends Component {
+class Cate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,38 +20,25 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    const { my } = this.props;
     this.onLoad();
-    if (my) {
-      this.el.addEventListener('scroll', this.handleScroll);
-    } else {
-      this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
-    }
+    this.el.parentNode.parentNode.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    const { my } = this.props;
-
-    if (my) {
-      this.el.removeEventListener('scroll', this.handleScroll);
-    } else {
-      this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
-    }
+    this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
   }
 
   // 加载更多
   onLoad() {
-    const { my } = this.props;
     const { pn, list, limit } = this.state;
     // 添加操作且不超过10
     const data = {
       pn,
       limit,
-      type: 3,
-      private: my ? 1 : 0,
     };
+
     req({
-      endpoint: 'home/feeds/list',
+      endpoint: 'home/cate/list',
       data,
     })
       .then((res) => {
@@ -70,24 +55,28 @@ class Video extends Component {
       });
   }
 
-
   handleScroll(e) {
     if (getElementScrollBottom(e.target) === 0) {
       this.onLoad();
     }
   }
-
   render() {
     const { list } = this.state;
     return (
-      <div className="feed-wrap video-wrap" ref={(el) => { this.el = el; }}>
-        {list.map(item => (
-          <VideoItem key={item.id} item={item}/>
-        ))}
-      </div>
+        <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
+          {list.map(item => (
+            <div className='cate-item'>
+              <img className="left" src={item.icon} alt="" />
+              <div className='mid'>
+                <p  className='mid-name'>{item.name}</p>
+                <p  className='mid-des'>{item.des}</p>
+              </div>
+              <div className='right'>关注</div>
+            </div>
+          ))}
+        </div>
     );
   }
 }
 
-
-export default withRouter(Video);
+export default withRouter(Cate);

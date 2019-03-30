@@ -1,42 +1,5 @@
 // 用户资料页
 .user-wrap{
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  font-size: .24rem;
-  text-align: center;
-  .user-avator{
-    height: 3.2rem;
-    overflow: hidden;
-    background: url('https://web.bldimg.com/cblued/static/WechatIMG136.1d3lqeeinhonsv.jpeg') no-repeat center center;
-    background-size: cover;
-    color: #fff;
-    .avator{
-      display: block;
-      margin: .5rem  auto .2rem auto;
-      width: 1.3rem;
-      height: 1.3rem;
-      border-radius: 50%;
-      border:.04rem solid #fff;
-    }
-    p{
-      height: .36rem;
-      line-height: 1.5;
-      margin: 0 .4rem;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      &.nick-name{
-        font-size: .28rem;
-      }
-      &.info{
-        span{
-          margin: 0 .1rem;
-        }
-      }
-
-    }
-  }
   .user-list {
     .am-list-content{
       font-size: .28rem;

@@ -4,6 +4,7 @@ import MyNavBar from '@components/MyNavBar';
 import './index.scss';
 import Feed from './Feed';
 
+
 class MyFeed extends Component {
   constructor() {
     super();
@@ -12,7 +13,7 @@ class MyFeed extends Component {
     return (
       <div className="myfeed-wrap">
         <MyNavBar title="我的动态" back />
-        <Feed my={1} />
+        <Feed my={1}  />
       </div>
     );
   }

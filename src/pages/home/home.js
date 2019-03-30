@@ -9,8 +9,8 @@ import obj2qs from '@utils/obj2qs';
 
 
 import Feed from '../feed/Feed';
-import Article from '../article/Article';
-import Video from '../video/Video';
+import Find from '../find/Find';
+import Video from '../feed/Feed';
 import User from '../user/User';
 
 import './index.scss';
@@ -22,8 +22,8 @@ class Home extends Component {
       isLogin: false,
       cates: {
         feed: '动态',
-        artcle: '文章',
-        video: '视频',
+        find: '发现',
+        msg: '消息',
         user: '我的',
       },
       title: '动态',
@@ -97,25 +97,25 @@ class Home extends Component {
             <Feed />
           </TabBar.Item>
           <TabBar.Item
-            icon={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
-            selectedIcon={(<i className="iconfont-md iconfont icon-wenzhang2" />)}
-            title="文章"
-            key="artcle"
-            selected={this.state.selectedTab === 'artcle'}
+            icon={(<i className="iconfont-md iconfont icon-find" />)}
+            selectedIcon={(<i className="iconfont-md iconfont icon-find" />)}
+            title="发现"
+            key="find"
+            selected={this.state.selectedTab === 'find'}
             onPress={() => {
-              this.handelPress('artcle');
+              this.handelPress('find');
             }}
           >
-            <Article />
+            <Find />
           </TabBar.Item>
           <TabBar.Item
-            icon={(<i className="iconfont-md iconfont icon-video" />)}
-            selectedIcon={(<i className="iconfont-md iconfont icon-video" />)}
-            title="视频"
-            key="video"
-            selected={this.state.selectedTab === 'video'}
+            icon={(<i className="iconfont-md iconfont icon--sixin" />)}
+            selectedIcon={(<i className="iconfont-md iconfont icon--sixin" />)}
+            title="消息"
+            key="msg"
+            selected={this.state.selectedTab === 'msg'}
             onPress={() => {
-              this.handelPress('video');
+              this.handelPress('msg');
             }}
           >
             <Video />
