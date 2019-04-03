@@ -14,6 +14,7 @@ class FeedDtail extends Component {
     this.state = {
       info : {}
     }
+    this.updateFeed = this.updateFeed.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +32,14 @@ class FeedDtail extends Component {
         }
       });
   }
+  updateFeed(fid){
+    const {info} = this.state
+    info.isZan =  1
+    info.zan +=1
+    this.setState({
+      info
+    })
+  }
 
   render() {
     const {info} = this.state
@@ -38,7 +47,7 @@ class FeedDtail extends Component {
       <div className="myfeed-wrap">
         <MyNavBar title="详情" back />
         <div className="feed-wrap">
-          {info.id ? (<FeedItem item={info} play={1} useclick={false} />) : '' }
+          {info.id ? (<FeedItem item={info} play={1} updateList={this.updateFeed}  useclick={false} />) : '' }
         </div>
       </div>
     );

@@ -18,6 +18,21 @@ class Feed extends Component {
     };
     this.onLoad = this.onLoad.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.updateList = this.updateList.bind(this);
+  }
+
+  updateList(fid){
+    const {list} = this.state
+    let tmp = list.map(item=>{
+      if(item.id ==fid){
+        item.isZan =  1
+        item.zan +=1
+      }
+      return item
+    })
+    this.setState({
+      list:tmp
+    })
   }
 
   componentDidMount() {
@@ -80,7 +95,7 @@ class Feed extends Component {
     return (
       <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
         {list.map(item => (
-          <FeedItem item={item} key={item.id}/>
+          <FeedItem item={item} key={item.id} updateList={this.updateList}/>
         ))}
       </div>
     );

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import req from '@utils/req';
+
 import './index.scss';
 class FeedItem extends Component {
   constructor(props) {
     super(props);
     this.jump = this.jump.bind(this)
     this.jumpUser = this.jumpUser.bind(this)
+    this.handleZan = this.handleZan.bind(this)
   }
+  
   jump(id){
     const {useclick = true} = this.props
     if(useclick){
@@ -18,6 +22,16 @@ class FeedItem extends Component {
     if(useclick){
       this.props.history.push(`/user/${uid}`);
     }
+  }
+  handleZan(fid,isZan){
+    if(isZan) return false
+    req({
+      endpoint: `/home/feed/zan/${fid}`,
+    }).then(res=>{
+      if(res.code==200){
+        this.props.updateList(fid)
+      }
+    })
   }
   render() {
     const {item, play=0} = this.props
@@ -62,10 +76,10 @@ class FeedItem extends Component {
           )
           : ''}
         </div>
-        <div className='btm'  onClick={()=>this.jump(item.id)}>
-          <div className='btm-item'><i className="iconfont icon--zan">&nbsp;{item.rank}</i></div>
-          <div className='btm-item'><i className="iconfont icon--pinglun">&nbsp;{item.rank}</i></div>
-          <div className='btm-item'><i className="iconfont icon--fenxiang">&nbsp;{item.rank}</i></div>
+        <div className='btm' >
+          <div className='btm-item' onClick={()=>this.handleZan(item.id,item.isZan)}><i className={item.isZan ? "iconfont icon--zan active" : "iconfont icon--zan"} >&nbsp;{item.zan}</i></div>
+          <div className='btm-item' onClick={()=>this.jump(item.id)}><i className="iconfont icon--pinglun" >&nbsp;{item.comment}</i></div>
+          <div className='btm-item'><i className="iconfont icon--fenxiang">&nbsp;{item.share}</i></div>
         </div>
       </div>
     )

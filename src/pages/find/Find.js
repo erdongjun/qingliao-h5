@@ -17,6 +17,8 @@ class Cate extends Component {
     };
     this.onLoad = this.onLoad.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.toggleFocus = this.toggleFocus.bind(this);
+    
   }
 
   componentDidMount() {
@@ -27,6 +29,29 @@ class Cate extends Component {
   componentWillUnmount() {
     this.el.parentNode.parentNode.removeEventListener('scroll', this.handleScroll);
   }
+  toggleFocus(cid,focus){
+    const {list} = this.state
+    const url = focus ? `home/cate/delfocus/${cid}` : `home/cate/focus/${cid}`
+
+    req({
+      endpoint: `${url}`,
+    }).then((res)=>{
+      if (res.code !== 200) {
+        Toast.fail(res.msg, 1);
+      }else{
+        let tmp = list.map(item=>{
+          if(item.id ==cid){
+            item.focus = focus ? 0 : 1
+          }
+          return item
+        })
+        this.setState({
+          list:tmp
+        })
+      }
+    })
+  }
+
 
   // 加载更多
   onLoad() {
@@ -62,16 +87,17 @@ class Cate extends Component {
   }
   render() {
     const { list } = this.state;
+    console.log(list)
     return (
         <div className="feed-wrap" ref={(el) => { this.el = el; }} onScroll={this.onScroll}>
           {list.map(item => (
-            <div className='cate-item'>
+            <div className='cate-item' key={item.id}>
               <img className="left" src={item.icon} alt="" />
               <div className='mid'>
                 <p  className='mid-name'>{item.name}</p>
                 <p  className='mid-des'>{item.des}</p>
               </div>
-              <div className='right'>关注</div>
+              <div className='right' onClick={()=>this.toggleFocus(item.id,item.focus)} >{item.focus ? '已关注':'关注' }</div>
             </div>
           ))}
         </div>
